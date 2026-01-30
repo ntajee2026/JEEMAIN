@@ -126,7 +126,57 @@ function downloadPDF(){
 
   doc.save("JEE_Main_2026_Scorecard.pdf");
 }
+<script>
+function genCaptcha(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s='';
+  for(let i=0;i<5;i++){
+    s += chars[Math.floor(Math.random()*chars.length)];
+  }
+  document.getElementById('captcha').innerText = s;
+}
+genCaptcha();
+
+function login(){
+
+  const app = document.getElementById('app').value.trim();
+  const pass = document.getElementById('pass').value.trim();
+  const capIn = document.getElementById('captchaInput').value;
+  const cap = document.getElementById('captcha').innerText;
+
+  if(capIn !== cap){
+    alert("CAPTCHA incorrect");
+    genCaptcha();
+    return;
+  }
+
+  if(app !== "260310087055" || pass !== "@Tnayare05"){
+    alert("Invalid Login");
+    return;
+  }
+
+  document.querySelector('.card-body').innerHTML = `
+    <h3>Result</h3>
+
+    <p><b>Name:</b> Tushar Nayare</p>
+    <p><b>Application No:</b> 260310087055</p>
+
+    <iframe 
+      src="260310087055.pdf"
+      width="100%"
+      height="500"
+      style="border:1px solid #ccc">
+    </iframe>
+
+    <br><br>
+
+    <a href="260310087055.pdf" download>
+      <button class="btn">Download Scorecard (PDF)</button>
+    </a>
+  `;
+}
 </script>
+
 
 </body>
 </html>
